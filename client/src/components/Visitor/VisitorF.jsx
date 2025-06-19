@@ -637,6 +637,39 @@ const VisitorF = () => {
     validateOnMount: true,
   });
 
+  const displayInstructions = () => {
+    if (disableSubmitButton === true) {
+      Swal.fire({
+        title: "Visitor Guidelines",
+        html: `
+    <ul style="text-align:left; line-height: 2;">
+      <li className=''><strong>01.</strong> Refrain from entering unauthorized. Do not visit the factory alone. Always ask for assistance. Stay with your host.</li>
+      <li className=''><strong>02.</strong> No unauthorized photos and videos.</li>
+      <li className=''><strong>03.</strong> Refrain from smoking.</li>
+      <li className=''><strong>04.</strong> Remove all types of metal items before entering.</li>
+      <li className=''><strong>05.</strong> Use the facility complaint management system for any complaints. Your valuable feedback is always welcome.</li>
+      <li className=''><strong>06.</strong> Safety First,  Pay attention to all the safety signs and Instructions always.</li>
+      <li className=''><strong>07.</strong> In case of emergency, If the fire alarm sounds, evacuate the building from the nearest emergency exit to the assembly point and help the head counter to verify that you are safe.</li>
+      <li className=''><strong>08.</strong> Do not touch machine parts or do not try to operate without permission of an authorized person.</li>
+      <li className=''><strong>09.</strong> Report all accidents immediately to the company medical center or the host.</li>
+      <li className=''><strong>10.</strong> Do not spit in open environment.</li>
+      <li className=''><strong>11.</strong> Make sure your vehicle is free from oil leakage to environment.  If you noted any environment adverse incident, please inform the management or the main security office.</li>
+      <li className=''><strong>12.</strong> Dispose waste only to labeled bins.</li>
+      <li className=''><strong>13.</strong> Scan the QR for the facility evacuation map.</li>
+    </ul>
+  `,
+        icon: "info",
+        iconColor: "#FD7475",
+        confirmButtonText: "Understood",
+        customClass: {
+          popup: "rounded-lg shadow-md",
+          title: "text-lg font-semibold",
+        },
+        width: "50%",
+      });
+    }
+  };
+
   return (
     <div className="visitor-container md:px-6 ">
       {/* bg-[radial-gradient(circle_at_bottom_left,_rgba(107,183,255,0.247),_white)] */}
@@ -1286,7 +1319,8 @@ const VisitorF = () => {
             name=""
             id="guidelines"
             onChange={(e) => {
-              setDisableSubmitButton(!disableSubmitButton);
+              setDisableSubmitButton(!disableSubmitButton),
+                displayInstructions();
             }}
           />{" "}
           <span>
