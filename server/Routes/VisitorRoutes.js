@@ -1552,6 +1552,9 @@ visiterRoutes.post("/updateVisitors-reception", async (req, res) => {
 //create contact person details using contactPersondetails->req
 
 // Route for sudden visits
+const yearserDay = new Date();
+yearserDay.setDate(yearserDay.getDate() - 1);
+
 visiterRoutes.post(
   "/createSuddenvisit",
   // Direct validation in route
@@ -1565,7 +1568,7 @@ visiterRoutes.post(
     .isDate()
     .withMessage("Invalid date format")
     .custom((value) => {
-      if (new Date(value) <= new Date()) {
+      if (new Date(value) <= yearserDay) {
         throw new Error("You cannot select past dates");
       }
       return true;
@@ -1592,23 +1595,23 @@ visiterRoutes.post(
     .isDate()
     .withMessage("Invalid date format")
     .custom((value) => {
-      if (new Date(value) <= new Date()) {
+      if (new Date(value) <= yearserDay) {
         throw new Error('Past dates for "from" date');
       }
       return true;
     }),
 
-  body("entryPermit.dateTo")
-    .notEmpty()
-    .withMessage("Please select a to date")
-    .isDate()
-    .withMessage("Invalid date format")
-    .custom((value, { req }) => {
-      if (new Date(value) <= new Date(req.body.entryPermit.dateFrom)) {
-        throw new Error('Past dates for "to" date');
-      }
-      return true;
-    }),
+  // body("entryPermit.dateTo")
+  //   .notEmpty()
+  //   .withMessage("Please select a to date")
+  //   .isDate()
+  //   .withMessage("Invalid date format")
+  //   .custom((value, { req }) => {
+  //     if (new Date(value) >= new Date(req.body.entryPermit.dateFrom)) {
+  //       throw new Error('Past dates for "to" date');
+  //     }
+  //     return true;
+  //   }),
 
   body("entryPermit.timeFrom")
     .notEmpty()
@@ -1745,11 +1748,11 @@ visiterRoutes.post(
         Time_To: entryPermit.timeTo,
         Num_of_Days: noOfDays,
         Factory_Id: userFactoryId.userFactoryId,
-        Breakfast: breakfast || null,
-        Lunch: lunch || null,
+        Breakfast: breakfast || false,
+        Lunch: lunch || false,
         Purpose: entryPermit.purpose,
         Visitor_Category: entryRequest.visitorCategory,
-        Tea: tea || null,
+        Tea: tea || false,
         Remark: mealplan.additionalNote,
       };
 

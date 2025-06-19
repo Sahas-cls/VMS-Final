@@ -31,6 +31,7 @@ const RDisplayVisitor = () => {
   const contactPersonMNo = visitor.ContactPerson_ContactNo;
 
   const Visitor = location.state?.visitor;
+  console.log("visitor data: ", visitor);
   const [visitorGroup, setVisitorGroup] = useState(
     location.state?.visitor.Visitors
   );
@@ -177,6 +178,10 @@ const RDisplayVisitor = () => {
     window.open(url, "_blank");
   };
 
+  const sendEmail = async () => {
+    const visitorEmail = "";
+  };
+
   useEffect(() => {
     const getCsrf = async () => {
       try {
@@ -318,8 +323,7 @@ const RDisplayVisitor = () => {
             default:
               setErrorMessages("An unexpected error occurred.");
               errorMessage =
-                error.response.data.message ||
-                "An unexpected error occurred.";
+                error.response.data.message || "An unexpected error occurred.";
           }
         } else if (error.request) {
           setErrorMessages(
@@ -863,7 +867,10 @@ const RDisplayVisitor = () => {
               Entry permit Reference & Issue
             </h1>
           </div>
-          <form className="w-full max-w-md mx-auto" onSubmit={formik.handleSubmit}>
+          <form
+            className="w-full max-w-md mx-auto"
+            onSubmit={formik.handleSubmit}
+          >
             <div className="grid grid-cols-1 gap-4 mb-4">
               <div className="flex flex-col sm:flex-row sm:items-center gap-2">
                 <label className="text-sm sm:w-1/3">Reference Number:</label>
@@ -918,7 +925,9 @@ const RDisplayVisitor = () => {
                   type="button"
                   disabled={!isSaved}
                   className="flex items-center justify-center text-sm px-4 py-1 border-black/50 shadow-custom1 border-2 bg-gray-300 rounded hover:bg-blue-300 hover:scale-105 disabled:opacity-50"
-                  onClick={disableSaveButton}
+                  onClick={() => {
+                    disableSaveButton, sendEmail();
+                  }}
                 >
                   <MdOutlineMail className="mr-1 text-3xl text-[#1A73E8]" />
                 </button>
@@ -936,7 +945,7 @@ const RDisplayVisitor = () => {
             </div>
           </form>
 
-          <div className="text-center">
+          {/* <div className="text-center">
             {emailSuccessMsg && (
               <p className="text-green-600 font-bold text-sm">
                 {typeof emailSuccessMsg === "object"
@@ -958,15 +967,15 @@ const RDisplayVisitor = () => {
                   : recMessages}
               </p>
             )}
-          </div>
+          </div> */}
 
           <div className="flex justify-center gap-3 mt-6 pb-4">
-            <button
+            {/* <button
               onClick={navigateTo}
               className="bg-green-600 py-1 w-20 px-3 rounded-md text-sm text-white hover:bg-green-800 shadow-lg"
             >
               Update
-            </button>
+            </button> */}
 
             <button
               type="button"

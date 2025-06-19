@@ -14,13 +14,15 @@ import { MdDelete } from "react-icons/md";
 import axios from "axios";
 
 const SuddenVisit = (userFactoryId) => {
+  const yearsterDay = new Date();
+  yearsterDay.setDate(yearsterDay.getDate() - 1);
   // Validation Schema
   const validationSchema = Yup.object().shape({
     entryRequest: Yup.object().shape({
       reqDept: Yup.string().required("Please select a department"),
       reqDate: Yup.date()
         .required("Please select a date")
-        .min(new Date(), "You cannot select past dates"),
+        .min(yearsterDay, "You cannot select past dates"),
       reqOfficer: Yup.string()
         .required("Officer name required")
         .matches(/^[A-Za-z\s]{3,255}$/, "Invalid name format"),
@@ -32,13 +34,11 @@ const SuddenVisit = (userFactoryId) => {
       purpose: Yup.string().required("Please select visit purpose"),
       dateFrom: Yup.date()
         .required("Date required")
-        .min(new Date(), "Past dates for 'from' date"),
+        .min(yearsterDay, "Past dates for 'from' date"),
       dateTo: Yup.date()
         .required("Please select a to date")
         .min(Yup.ref("dateFrom"), "Date cannot be before 'from' date"),
-      timeFrom: Yup.string().required(
-        "Time required"
-      ),
+      timeFrom: Yup.string().required("Time required"),
       timeTo: Yup.string().when("timeFrom", (timeFrom, schema) => {
         return timeFrom
           ? schema.test("is-after", "Time cannot be in past", function (value) {
@@ -133,7 +133,6 @@ const SuddenVisit = (userFactoryId) => {
   const [departments, setDepartments] = useState({});
   const [validationErrorsS, setValidationErrorsS] = useState({});
   const apiUrl = import.meta.env.VITE_API_URL;
- 
 
   useEffect(() => {
     const factoryId = userFactoryId.userFactoryId;

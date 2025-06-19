@@ -1,4 +1,4 @@
-	import React, { useState } from "react";
+import React, { useState } from "react";
 import Login from "./components/Login/Login";
 import CMain from "./components/DeparmentClerk/CMain";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -64,7 +64,7 @@ function App() {
           <Route path="/reset-user-password" element={<Resetpassword />} />
           {/* to edit visitors details - reception */}
           <Route path="/edit-visit-recept" element={<EditVisitor />} />
-	  <Route path="/new-visitor" element={<VisitorF/>} />
+          <Route path="/new-visitor" element={<VisitorF />} />
         </Routes>
       </Router>
     </div>
