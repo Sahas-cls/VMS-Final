@@ -640,7 +640,7 @@ const VisitorF = () => {
   const displayInstructions = () => {
     if (disableSubmitButton === true) {
       Swal.fire({
-        title: "Visitor Guidelines",
+        title: "Visitor Instructions",
         html: `
     <ul style="text-align:left; line-height: 2;">
       <li className=''><strong>01.</strong> Refrain from entering unauthorized. Do not visit the factory alone. Always ask for assistance. Stay with your host.</li>
@@ -661,11 +661,13 @@ const VisitorF = () => {
         icon: "info",
         iconColor: "#FD7475",
         confirmButtonText: "Understood",
+        confirmButtonColor: "#FD7475",
         customClass: {
           popup: "rounded-lg shadow-md",
-          title: "text-lg font-semibold",
+          title: "text-3xl font-border",
         },
         width: "50%",
+        allowOutsideClick: false,
       });
     }
   };
