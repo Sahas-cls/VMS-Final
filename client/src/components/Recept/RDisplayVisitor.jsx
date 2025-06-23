@@ -362,7 +362,9 @@ const RDisplayVisitor = () => {
   const [emailSuccessMsg, setEmailSuccessMsg] = useState();
   const [serverSideErrors, setServerSideErrors] = useState({});
   const [recMessages, setRecMessages] = useState();
+
   const handleSendEmail = async (e) => {
+    alert("sending email");
     let formData = {
       userId: userId,
       Visit_Id: VisitId,
@@ -860,7 +862,7 @@ const RDisplayVisitor = () => {
         </div>
       </form>
 
-      <div className="w-full px-2 w-full flex justify-center md:mt-0 mt-[-5px]">
+      <div className="w-full px-2 flex justify-center md:mt-0 mt-[-5px]">
         <div className="bg-gradient-to-tr from-sky-100 to-sky-200 rounded-lg shadow-custom1 p-4 w-full lg:w-6/6">
           <div className="text-center">
             <h1 className="font-bold text-lg text-blue-950 mb-4">
@@ -972,7 +974,7 @@ const RDisplayVisitor = () => {
           <div className="flex justify-center gap-3 mt-6 pb-4">
             {/* <button
               onClick={navigateTo}
-              className="bg-green-600 py-1 w-20 px-3 rounded-md text-sm text-white hover:bg-green-800 shadow-lg"
+              className="bg-green-600 py-2 w-20 md:w-28 px-3 rounded-md text-sm text-white hover:bg-green-800 shadow-lg"
             >
               Update
             </button> */}
@@ -980,7 +982,7 @@ const RDisplayVisitor = () => {
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="bg-blue-600 py-1 w-20 px-3 rounded-md text-sm text-white hover:bg-blue-800 shadow-lg"
+              className="bg-blue-600 py-2 w-20 md:w-28 px-3 rounded-md text-sm text-white hover:bg-blue-800 shadow-lg"
             >
               Back
             </button>

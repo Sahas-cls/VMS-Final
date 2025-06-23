@@ -777,15 +777,7 @@ visiterRoutes.post(
       const info = await sendEmail(
         listOfEmails,
         "New visitor arrival",
-        `<p>${
-          contactPersonDetails.cName
-        } is awaiting your approval to visit your department. Please review and take the necessary action.</p>
-<a href="${
-          import.meta.env.VITE_FRONTEND_URL
-        }" style="color: #1a73e8; text-decoration: none; font-weight: bold;">
-  Go to the system
-</a>
-        `
+        `<p>${contactPersonDetails.cName} is waiting for approval</p>`
       );
       console.timeEnd("SendEmail");
 
@@ -1045,9 +1037,7 @@ visiterRoutes.post(
                 <h3>Hi</h3>
                 <p>A new visitor request is pending your approval.</p>
                 <p>Please log into the visitor management system to approve or decline the request</p>
-                <a href=${
-                  import.meta.env.VITE_FRONTEND_URL
-                } style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
+                <a href="http://localhost:5173" style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
                 <br>
                 <br>
                 <p>Thank you,</p>
@@ -1219,9 +1209,7 @@ visiterRoutes.post(
                 <h3>Hi</h3>
                 <p>A new visitor has been registered</p>
                 <p>Please log into the visitor management system to review the details.</p>
-                <a href=${
-                  import.meta.env.VITE_FRONTEND_URL
-                } style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
+                <a href="http://localhost:5173" style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
                 <br>
                 <p>Thank you,</p>
                 <p>Visitor Management System</p>
@@ -1450,9 +1438,7 @@ visiterRoutes.post(
                 <h3>Hi</h3>
                 <p>A new visitor has been registerd.</p>
                 <p>Please log intothe visitor management system and arrange a BOI pass for him</p>
-                <a href=${
-                  import.meta.env.VITE_FRONTEND_URL
-                } style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
+                <a href="http://localhost:5173" style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
                 <p>Thank you,</p>
                 <p>Visitor Management System</p>
               `
@@ -1566,9 +1552,6 @@ visiterRoutes.post("/updateVisitors-reception", async (req, res) => {
 //create contact person details using contactPersondetails->req
 
 // Route for sudden visits
-const yearserDay = new Date();
-yearserDay.setDate(yearserDay.getDate() - 1);
-
 visiterRoutes.post(
   "/createSuddenvisit",
   // Direct validation in route
@@ -1582,7 +1565,7 @@ visiterRoutes.post(
     .isDate()
     .withMessage("Invalid date format")
     .custom((value) => {
-      if (new Date(value) <= yearserDay) {
+      if (new Date(value) <= new Date()) {
         throw new Error("You cannot select past dates");
       }
       return true;
@@ -1609,23 +1592,36 @@ visiterRoutes.post(
     .isDate()
     .withMessage("Invalid date format")
     .custom((value) => {
-      if (new Date(value) <= yearserDay) {
+      const inputDate = new Date(value);
+      const today = new Date();
+
+      // Set both dates to midnight to ignore time
+      inputDate.setHours(0, 0, 0, 0);
+      today.setHours(0, 0, 0, 0);
+
+      if (inputDate < today) {
         throw new Error('Past dates for "from" date');
       }
       return true;
     }),
 
-  // body("entryPermit.dateTo")
-  //   .notEmpty()
-  //   .withMessage("Please select a to date")
-  //   .isDate()
-  //   .withMessage("Invalid date format")
-  //   .custom((value, { req }) => {
-  //     if (new Date(value) >= new Date(req.body.entryPermit.dateFrom)) {
-  //       throw new Error('Past dates for "to" date');
-  //     }
-  //     return true;
-  //   }),
+  body("entryPermit.dateTo")
+    .notEmpty()
+    .withMessage("Please select a to date")
+    .isDate()
+    .withMessage("Invalid date format")
+    .custom((value, { req }) => {
+      const toDate = new Date(value);
+      const fromDate = new Date(req.body.entryPermit.dateFrom);
+
+      toDate.setHours(0, 0, 0, 0);
+      fromDate.setHours(0, 0, 0, 0);
+
+      if (toDate < fromDate) {
+        throw new Error('"To" date must be the same or after "From" date');
+      }
+      return true;
+    }),
 
   body("entryPermit.timeFrom")
     .notEmpty()
@@ -1768,6 +1764,8 @@ visiterRoutes.post(
         Visitor_Category: entryRequest.visitorCategory,
         Tea: tea || false,
         Remark: mealplan.additionalNote,
+        Reference_No: "Sudden visit",
+        HR_Approval: true,
       };
 
       const createdVisit = await Visits.create(newVisit, { transaction });

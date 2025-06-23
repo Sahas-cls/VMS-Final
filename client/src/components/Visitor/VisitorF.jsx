@@ -6,7 +6,6 @@ import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Swal from "sweetalert2";
 
 const VisitorF = () => {
   const [csrfToken, setCsrfToken] = useState("");
@@ -637,41 +636,6 @@ const VisitorF = () => {
     validateOnMount: true,
   });
 
-  const displayInstructions = () => {
-    if (disableSubmitButton === true) {
-      Swal.fire({
-        title: "Visitor Instructions",
-        html: `
-    <ul style="text-align:left; line-height: 2;">
-      <li className=''><strong>01.</strong> Refrain from entering unauthorized. Do not visit the factory alone. Always ask for assistance. Stay with your host.</li>
-      <li className=''><strong>02.</strong> No unauthorized photos and videos.</li>
-      <li className=''><strong>03.</strong> Refrain from smoking.</li>
-      <li className=''><strong>04.</strong> Remove all types of metal items before entering.</li>
-      <li className=''><strong>05.</strong> Use the facility complaint management system for any complaints. Your valuable feedback is always welcome.</li>
-      <li className=''><strong>06.</strong> Safety First,  Pay attention to all the safety signs and Instructions always.</li>
-      <li className=''><strong>07.</strong> In case of emergency, If the fire alarm sounds, evacuate the building from the nearest emergency exit to the assembly point and help the head counter to verify that you are safe.</li>
-      <li className=''><strong>08.</strong> Do not touch machine parts or do not try to operate without permission of an authorized person.</li>
-      <li className=''><strong>09.</strong> Report all accidents immediately to the company medical center or the host.</li>
-      <li className=''><strong>10.</strong> Do not spit in open environment.</li>
-      <li className=''><strong>11.</strong> Make sure your vehicle is free from oil leakage to environment.  If you noted any environment adverse incident, please inform the management or the main security office.</li>
-      <li className=''><strong>12.</strong> Dispose waste only to labeled bins.</li>
-      <li className=''><strong>13.</strong> Scan the QR for the facility evacuation map.</li>
-    </ul>
-  `,
-        icon: "info",
-        iconColor: "#FD7475",
-        confirmButtonText: "Understood",
-        confirmButtonColor: "#FD7475",
-        customClass: {
-          popup: "rounded-lg shadow-md",
-          title: "text-3xl font-border",
-        },
-        width: "50%",
-        allowOutsideClick: false,
-      });
-    }
-  };
-
   return (
     <div className="visitor-container md:px-6 ">
       {/* bg-[radial-gradient(circle_at_bottom_left,_rgba(107,183,255,0.247),_white)] */}
@@ -1241,89 +1205,12 @@ const VisitorF = () => {
           </div>
         </div>
 
-        {/* <div className="">
-          <div className="mt-6 px-4 sm:px-6 md:px-10 flex flex-col items-center">
-            <h1 className="text-xl my-2 underline">Visitor Instructions</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-7xl w-full">
-              <section
-                className="bg-blue-300/70 p-4 rounded-md"
-                style={{
-                  backgroundImage: `url('public/VisitorRegistration/Rule1.png')`,
-                }}
-              >
-                <h5>
-                  01. Refrain from entering unauthorized. Do not visit factory
-                  alone. Always ask for assistance. Stay with your host.
-                </h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>02. No unauthorized photos and videos.</h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>03. Refrain from smoking.</h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>04. Remove all types of metal items before entering.</h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>
-                  05. Use the facility complaint management system for any
-                  complaints. Your valuable feedback is always welcome.
-                </h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>
-                  07. Safety First, Pay attention to all the safety signs and
-                  Instructions always.
-                </h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>
-                  08. In case of emergency, If the fire alarm sounds, evacuate
-                  the building from the nearest emergency exit to the assembly
-                  point and help the head counter to verify that you are safe.
-                </h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>
-                  09. Do not touch machine parts or do not try to operate
-                  without permission of an authorized person.
-                </h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>
-                  10.Report all accidents immediately to the company medical
-                  center or the host.
-                </h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>11.  Do not spit in open environment.</h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>
-                  12. Make sure your vehicle is free from oil leakage to
-                  environment. If you noted any environment adverse incident,
-                  please inform the management or the main security office.
-                </h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>13. Dispose waste only to labeled bins.</h5>
-              </section>
-              <section className="bg-blue-300/70 p-4 rounded-md">
-                <h5>17. Scan the QR for the facility evacuation map.</h5>
-              </section>
-            </div>
-          </div>
-        </div> */}
         <div className="mt-12 text-center guidLine">
           <input
             type="checkbox"
             name=""
             id="guidelines"
-            onChange={(e) => {
-              setDisableSubmitButton(!disableSubmitButton),
-                displayInstructions();
-            }}
+            onChange={() => setDisableSubmitButton(!disableSubmitButton)}
           />{" "}
           <span>
             <label htmlFor="guidelines">
