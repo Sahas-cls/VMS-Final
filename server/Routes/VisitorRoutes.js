@@ -777,7 +777,15 @@ visiterRoutes.post(
       const info = await sendEmail(
         listOfEmails,
         "New visitor arrival",
-        `<p>${contactPersonDetails.cName} is waiting for approval</p>`
+        `<p>${
+          contactPersonDetails.cName
+        } is awaiting your approval to visit your department. Please review and take the necessary action.</p>
+<a href="${
+          import.meta.env.VITE_FRONTEND_URL
+        }" style="color: #1a73e8; text-decoration: none; font-weight: bold;">
+  Go to the system
+</a>
+        `
       );
       console.timeEnd("SendEmail");
 
@@ -1037,7 +1045,9 @@ visiterRoutes.post(
                 <h3>Hi</h3>
                 <p>A new visitor request is pending your approval.</p>
                 <p>Please log into the visitor management system to approve or decline the request</p>
-                <a href="http://localhost:5173" style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
+                <a href=${
+                  import.meta.env.VITE_FRONTEND_URL
+                } style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
                 <br>
                 <br>
                 <p>Thank you,</p>
@@ -1209,7 +1219,9 @@ visiterRoutes.post(
                 <h3>Hi</h3>
                 <p>A new visitor has been registered</p>
                 <p>Please log into the visitor management system to review the details.</p>
-                <a href="http://localhost:5173" style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
+                <a href=${
+                  import.meta.env.VITE_FRONTEND_URL
+                } style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
                 <br>
                 <p>Thank you,</p>
                 <p>Visitor Management System</p>
@@ -1438,7 +1450,9 @@ visiterRoutes.post(
                 <h3>Hi</h3>
                 <p>A new visitor has been registerd.</p>
                 <p>Please log intothe visitor management system and arrange a BOI pass for him</p>
-                <a href="http://localhost:5173" style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
+                <a href=${
+                  import.meta.env.VITE_FRONTEND_URL
+                } style="color: #1a73e8; text-decoration: none; font-weight: bold;">Go to the Application</a>
                 <p>Thank you,</p>
                 <p>Visitor Management System</p>
               `
@@ -1870,24 +1884,23 @@ visiterRoutes.get(
                 { Reference_No: { [Op.ne]: null } },
                 { Reference_No: { [Op.ne]: "" } },
               ],
-              // [Op.and]: [
-              //   // Ensure the current date falls within the given Date_From and Date_To
-              //   sequelize.where(
-              //     sequelize.fn("DATE", sequelize.col("Visits.Date_From")),
-              //     {
-              //       [Op.lte]: sequelize.fn("CURDATE"),
-              //     }
-              //   ),
-              //   sequelize.where(
-              //     sequelize.fn("DATE", sequelize.col("Visits.Date_To")),
-              //     {
-              //       [Op.gte]: sequelize.fn("CURDATE"),
-              //     }
-              //   ),
-              //   // You can add further constraints based on the factory and department IDs if needed
-              //   { Factory_Id: facId },
-              //   { Department_Id: depId },
-              // ],
+              [Op.and]: [
+                // Ensure the current date falls within the given Date_From and Date_To
+                sequelize.where(
+                  sequelize.fn("DATE", sequelize.col("Visits.Date_From")),
+                  {
+                    [Op.lte]: sequelize.fn("CURDATE"),
+                  }
+                ),
+                sequelize.where(
+                  sequelize.fn("DATE", sequelize.col("Visits.Date_To")),
+                  {
+                    [Op.gte]: sequelize.fn("CURDATE"),
+                  }
+                ),
+                // You can add further constraints based on the factory and department IDs if needed
+                { Factory_Id: facId },
+              ],
             },
             required: true,
           },
