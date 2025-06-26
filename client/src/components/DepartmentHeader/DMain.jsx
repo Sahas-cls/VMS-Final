@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import DSidebar from "./DSidebar";
 import DContainer from "./DContainer";
@@ -6,7 +7,6 @@ import axios from "axios";
 import Header from "../../Header";
 import DApprovedVisitors from "./DApprovedVisitors";
 import UseWindowWidth from "../UseWindowWidth";
-import { AnimatePresence, motion } from "framer-motion";
 
 const DMain = ({
   userId,
@@ -24,7 +24,6 @@ const DMain = ({
     userCategory: "",
     userDepartment: "",
   });
-
   useEffect(() => {
     const getCsrf = async () => {
       try {
@@ -40,6 +39,7 @@ const DMain = ({
         alert(`Error while fetching csrf token:- ${error}`);
       }
     };
+    getCsrf();
 
     const getUserData = async () => {
       try {
@@ -59,37 +59,32 @@ const DMain = ({
         alert("Error while getting user data: " + error);
       }
     };
-
-    getCsrf();
     getUserData();
+
+    // alert(userData);
+    // console.log(userData);
   }, []);
 
   const [view, setView] = useState("visitor");
   const screenSize = UseWindowWidth();
+  // console.log(screenSize)
   const [toggleSidebar, setToggleSidebar] = useState(screenSize < 768);
-
+  // alert(userCategory);
   const handleSidebarClick = (value) => {
     setView(value);
   };
 
   useEffect(() => {
+    // This effect runs when screenSize changes (e.g., window resize)
     if (screenSize < 768) {
-      setToggleSidebar(false);
+      setToggleSidebar(false); // Hide sidebar on small screens
     } else {
-      setToggleSidebar(true);
+      setToggleSidebar(true); // Show sidebar on larger screens
     }
   }, [screenSize]);
 
-  const animationProps = {
-    initial: { opacity: 0, x: -500, scale: 0.9 },
-    animate: { opacity: 1, x: 0, scale: 1 },
-    exit: { opacity: 0, x: 500, scale: 0.9 },
-    transition: { duration: 0.2, type: "tween" },
-    className: "flex-1",
-  };
-
   return (
-    <div className="overflow-x-hidden">
+    <div>
       <Header
         userId={userId}
         userName={userName}
@@ -98,38 +93,33 @@ const DMain = ({
         toggleSidebar={toggleSidebar}
         setToggleSidebar={setToggleSidebar}
       />
-      <div className="mainContainer flex overflow-x-hidden">
-        {toggleSidebar && <DSidebar handleSidebarClick={handleSidebarClick} />}
-
-        <AnimatePresence mode="wait">
-          {view === "visitor" && (
-            <motion.div key="visitor" {...animationProps}>
-              <DContainer
-                userId={userId}
-                userName={userName}
-                userCategory={userCategory}
-                userDepartment={userDepartment}
-                userDepartmentId={userDepartmentId}
-                userFactoryId={userFactoryId}
-                setToggleSidebar={setToggleSidebar}
-              />
-            </motion.div>
-          )}
-
-          {view === "approvedVisitors" && (
-            <motion.div key="approvedVisitors" {...animationProps}>
-              <DApprovedVisitors
-                userId={userId}
-                userName={userName}
-                userCategory={userCategory}
-                userDepartment={userDepartment}
-                userDepartmentId={userDepartmentId}
-                userFactoryId={userFactoryId}
-                setToggleSidebar={setToggleSidebar}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div className="mainContainer flex">
+        {toggleSidebar ? (
+          <DSidebar handleSidebarClick={handleSidebarClick} />
+        ) : null}
+        {/* {toggleSidebar ? <DSidebar onSidebarClick={handleSidebarClick} /> : ""} */}
+        {view === "visitor" && (
+          <DContainer
+            userId={userId}
+            userName={userName}
+            userCategory={userCategory}
+            userDepartment={userDepartment}
+            userDepartmentId={userDepartmentId}
+            userFactoryId={userFactoryId}
+            setToggleSidebar={setToggleSidebar}
+          />
+        )}
+        {view === "approvedVisitors" && (
+          <DApprovedVisitors
+            userId={userId}
+            userName={userName}
+            userCategory={userCategory}
+            userDepartment={userDepartment}
+            userDepartmentId={userDepartmentId}
+            userFactoryId={userFactoryId}
+            setToggleSidebar={setToggleSidebar}
+          />
+        )}
       </div>
     </div>
   );

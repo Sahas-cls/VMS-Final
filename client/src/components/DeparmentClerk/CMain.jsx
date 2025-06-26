@@ -34,10 +34,10 @@ const CMain = ({
   }, [screenSize]);
 
   const animationProps = {
-    initial: { opacity: 0, x: -500, scale: 0.9 },
-    animate: { opacity: 1, x: 0, scale: 1 },
-    exit: { opacity: 0, x: 500, scale: 0.9 },
-    transition: { duration: 0.2, type: "tween" },
+    initial: { opacity: 0, y: -100 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 300 },
+    transition: { duration: 0.3, type: "spring" },
     className: "flex-1",
   };
 

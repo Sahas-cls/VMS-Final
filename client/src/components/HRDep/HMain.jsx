@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../../Header";
@@ -5,7 +6,6 @@ import HSidebar from "./HSidebar";
 import HConteiner from "./HContainer";
 import HApprovedVisitors from "./HApprovedVisitors";
 import UseWindowWidth from "../UseWindowWidth";
-import { AnimatePresence, motion } from "framer-motion";
 
 const HMain = ({
   userId,
@@ -30,6 +30,7 @@ const HMain = ({
           withCredentials: true,
         });
         if (response) {
+          // alert(response.data.csrfToken);
           const csrf = await response.data.csrfToken;
           setCsrfToken(csrf);
         }
@@ -58,34 +59,32 @@ const HMain = ({
       }
     };
     getUserData();
+
+    // alert(userData);
+    // console.log(userData);
   }, []);
 
   const [view, setView] = useState("visitor");
+  // alert(userCategory);
   const handleSidebarClick = (value) => {
     setView(value);
   };
 
-  const screenSize = UseWindowWidth();
+  const screenSize = UseWindowWidth(); // Get the screen width from the custom hook
   const [toggleSidebar, setToggleSidebar] = useState(screenSize < 700);
 
   useEffect(() => {
+    // This effect runs when screenSize changes (e.g., window resize)
     if (screenSize < 768) {
-      setToggleSidebar(false);
+      // alert("700px")
+      setToggleSidebar(false); // Hide sidebar on small screens
     } else {
-      setToggleSidebar(true);
+      setToggleSidebar(true); // Show sidebar on larger screens
     }
-  }, [screenSize]);
-
-  const animationProps = {
-    initial: { opacity: 0, x: -500, scale: 0.9 },
-    animate: { opacity: 1, x: 0, scale: 1 },
-    exit: { opacity: 0, x: 500, scale: 0.9 },
-    transition: { duration: 0.2, type: "tween" },
-    className: "flex-1",
-  };
+  }, [screenSize]); // Dependency array ensures it runs when screen size changes
 
   return (
-    <div className="overflow-x-hidden">
+    <div>
       <Header
         userId={userId}
         userName={userName}
@@ -95,41 +94,34 @@ const HMain = ({
         setToggleSidebar={setToggleSidebar}
       />
       <div className="mainContainer flex duration-150">
-        {toggleSidebar && (
+        {toggleSidebar ? (
           <HSidebar
             onSidebarClick={handleSidebarClick}
             className="duration-150"
           />
+        ) : null}
+        {/* {toggleSidebar ? <HSidebar onSidebarClick={handleSidebarClick} /> : ""} */}
+        {view === "visitor" && (
+          <HConteiner
+            userId={userId}
+            userName={userName}
+            userCategory={userCategory}
+            userDepartment={userDepartment}
+            userDepartmentId={userDepartmentId}
+            userFactoryId={userFactoryId}
+            setToggleSidebar={setToggleSidebar}
+          />
         )}
-
-        <AnimatePresence mode="wait">
-          {view === "visitor" && (
-            <motion.div key="visitor" {...animationProps}>
-              <HConteiner
-                userId={userId}
-                userName={userName}
-                userCategory={userCategory}
-                userDepartment={userDepartment}
-                userDepartmentId={userDepartmentId}
-                userFactoryId={userFactoryId}
-                setToggleSidebar={setToggleSidebar}
-              />
-            </motion.div>
-          )}
-
-          {view === "approvedVisitors" && (
-            <motion.div key="approvedVisitors" {...animationProps}>
-              <HApprovedVisitors
-                userId={userId}
-                userName={userName}
-                userCategory={userCategory}
-                userDepartment={userDepartment}
-                userDepartmentId={userDepartmentId}
-                userFactoryId={userFactoryId}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {view === "approvedVisitors" && (
+          <HApprovedVisitors
+            userId={userId}
+            userName={userName}
+            userCategory={userCategory}
+            userDepartment={userDepartment}
+            userDepartmentId={userDepartmentId}
+            userFactoryId={userFactoryId}
+          />
+        )}
       </div>
     </div>
   );
