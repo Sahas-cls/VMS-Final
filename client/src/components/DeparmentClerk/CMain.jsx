@@ -6,7 +6,7 @@ import Header from "../../Header";
 import CApprovedVisitors from "./CApprovedVisitors";
 import UseWindowWidth from "../UseWindowWidth";
 import RDashboard from "../Recept/RDashboard";
-import { AnimatePresence, motion } from "framer-motion";
+// import { AnimatePresence, motion } from "framer-motion";
 
 const CMain = ({
   userId,
@@ -54,51 +54,39 @@ const CMain = ({
       <div className={`mainContainer flex`} style={{ backgroundColor: "" }}>
         {toggleSidebar && <CSidebar onSidebarClick={handleSidebarClick} />}
 
-        <AnimatePresence mode="wait">
-          {view === "visitor" && (
-            <motion.div key="visitor" {...animationProps}>
-              <CConteiner
-                userId={userId}
-                userName={userName}
-                userCategory={userCategory}
-                userDepartment={userDepartment}
-                userDepartmentId={userDepartmentId}
-                userFactoryId={userFactoryId}
-              />
-            </motion.div>
-          )}
+        {view === "visitor" && (
+          <CConteiner
+            userId={userId}
+            userName={userName}
+            userCategory={userCategory}
+            userDepartment={userDepartment}
+            userDepartmentId={userDepartmentId}
+            userFactoryId={userFactoryId}
+          />
+        )}
 
-          {view === "report" && (
-            <motion.div key="report" {...animationProps}>
-              <CReport />
-            </motion.div>
-          )}
+        {view === "report" && <CReport />}
 
-          {view === "ApprovedVisitors" && (
-            <motion.div key="ApprovedVisitors" {...animationProps}>
-              <CApprovedVisitors
-                userId={userId}
-                userName={userName}
-                userCategory={userCategory}
-                userDepartment={userDepartment}
-                userDepartmentId={userDepartmentId}
-                userFactoryId={userFactoryId}
-              />
-            </motion.div>
-          )}
+        {view === "ApprovedVisitors" && (
+          <CApprovedVisitors
+            userId={userId}
+            userName={userName}
+            userCategory={userCategory}
+            userDepartment={userDepartment}
+            userDepartmentId={userDepartmentId}
+            userFactoryId={userFactoryId}
+          />
+        )}
 
-          {view === "getReports" && (
-            <motion.div key="getReports" {...animationProps}>
-              <RDashboard
-                userFactoryId={userFactoryId}
-                userName={userName}
-                userCategory={userCategory}
-                userDepartment={userDepartment}
-                toggleSidebar={toggleSidebar}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {view === "getReports" && (
+          <RDashboard
+            userFactoryId={userFactoryId}
+            userName={userName}
+            userCategory={userCategory}
+            userDepartment={userDepartment}
+            toggleSidebar={toggleSidebar}
+          />
+        )}
       </div>
     </div>
   );
