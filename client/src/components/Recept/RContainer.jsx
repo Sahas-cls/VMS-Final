@@ -113,7 +113,9 @@ const RContainer = ({
       {/* <h1>{userDepartmentId}</h1> */}
       {/* <h1>4654: {userId || 123}</h1> */}
       <form action="" onSubmit={() => alert("submitting")} className="w-full">
-        <h1 className="text-md mt-2 mb-2 font-extrabold text-center text-lg">Visitors List</h1>
+        <h1 className="text-md mt-2 mb-2 font-extrabold text-center text-lg">
+          Visitors List
+        </h1>
 
         <div className="w-full overflow-x-auto">
           <table className="w-full">
@@ -126,7 +128,7 @@ const RContainer = ({
                   NIC/PPNo
                 </th>
                 <th className="border-0 bg-blue-500 text-white text-left text-sm">
-                  Vehicle Type  
+                  Vehicle Type
                 </th>
                 <th className="border-0 bg-blue-500 text-white text-left text-sm">
                   Vehicle No
@@ -139,15 +141,15 @@ const RContainer = ({
             </thead>
 
             <tbody>
-              {visitorList &&
+              {visitorList && visitorList.length > 0 ? (
                 visitorList.map((visitor) => {
                   const vehicleNumbers = visitor.Vehicles.map(
                     (vehicle) => vehicle.Vehicle_No
-                  ).join("/n");
+                  ).join("\n");
 
                   const vehicleType = visitor.Vehicles.map(
                     (vehicle) => vehicle.Vehicle_Type
-                  ).join("/n");
+                  ).join("\n");
 
                   return (
                     <tr
@@ -166,18 +168,13 @@ const RContainer = ({
                       <td className="p-2 border-r-2 border-white text-sm">
                         {vehicleNumbers || "No vehicles"}
                       </td>
-                      <td
-                        className="p-2 border-r-0 border-black w-auto text-sm"
-                        style={{ display: "" }}
-                      >
+                      <td className="p-2 border-r-0 border-black w-auto text-sm">
                         <div className="h-full md:flex md:gap-1">
                           <div className="w-1/2 text-center md:pr-1 md:h-full md:border-r border-black mb-0">
                             {new Date(
                               visitor.Visits[0]?.Date_From
-                            ).toLocaleDateString()}{" "}
+                            ).toLocaleDateString()}
                           </div>
-                          {/* &nbsp;-&nbsp; */}
-
                           <div className="w-1/2 text-center md:h-full border-black">
                             {visitor.Visits[0]?.Date_To &&
                               new Date(
@@ -198,7 +195,17 @@ const RContainer = ({
                       </td>
                     </tr>
                   );
-                })}
+                })
+              ) : (
+                <tr>
+                  <td
+                    colSpan="6"
+                    className="text-center py-2 text-sm text-gray-600"
+                  >
+                    <p className="italic">There are no visitors yet</p>
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

@@ -3,6 +3,7 @@ import Header from "../../Header";
 import UseWindowWidth from "../UseWindowWidth";
 import ASidebar from "./ASidebar";
 import AManageUsers from "./AManageUsers";
+import { AnimatePresence, motion } from "framer-motion";
 
 const AMain = ({
   userId,
@@ -13,25 +14,28 @@ const AMain = ({
   userFactoryId,
 }) => {
   const [view, setView] = useState("manageUsers");
-  const screenSize = UseWindowWidth(); // Get the screen width from the custom hook
-  // const [toggleSidebar, setToggleSidebar] = useState(screenSize < 700); // Set initial sidebar state based on screen size
+  const screenSize = UseWindowWidth();
   const [toggleSidebar, setToggleSidebar] = useState(screenSize < 700);
+
   const handleSidebarClick = (value) => {
     setView(value);
   };
 
-  
-
   useEffect(() => {
-    // This effect runs when screenSize changes (e.g., window resize)
     if (screenSize < 700) {
-      setToggleSidebar(false); // Hide sidebar on small screens
+      setToggleSidebar(false);
     } else {
-      setToggleSidebar(true); // Show sidebar on larger screens
+      setToggleSidebar(true);
     }
+  }, [screenSize]);
 
-    // console.log("toggleSidebar:", toggleSidebar);
-  }, [screenSize]); // Dependency array ensures it runs when screen size changes
+  const animationProps = {
+    initial: { opacity: 0, y: -100 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 300 },
+    transition: { duration: 0.3, type: "spring" },
+    className: "flex-1",
+  };
 
   return (
     <div className="max-h-screen overflow-y-hidden">
@@ -44,32 +48,22 @@ const AMain = ({
         setToggleSidebar={setToggleSidebar}
       />
       <div className="mainContainer flex" style={{ backgroundColor: "" }}>
-        {toggleSidebar ? (
-          <ASidebar onSidebarClick={handleSidebarClick} />
-        ) : null}
-        {view === "manageUsers" && (
-          <AManageUsers
-            userId={userId}
-            userName={userName}
-            userCategory={userCategory}
-            userDepartment={userDepartment}
-            userDepartmentId={userDepartmentId}
-            userFactoryId={userFactoryId}
-            // setToggleSidebar={setToggleSidebar}
-          />
-        )}
-        {/* {view === "report" && <CReport />} */}
-        {/* {view === "ApprovedVisitors" && (
-          <CApprovedVisitors
-            userId={userId}
-            userName={userName}
-            userCategory={userCategory}
-            userDepartment={userDepartment}
-            userDepartmentId={userDepartmentId}
-            userFactoryId={userFactoryId}
-            // setToggleSidebar={setToggleSidebar}
-          />
-        )} */}
+        {toggleSidebar && <ASidebar onSidebarClick={handleSidebarClick} />}
+
+        <AnimatePresence mode="wait">
+          {view === "manageUsers" && (
+            <motion.div key="manageUsers" {...animationProps}>
+              <AManageUsers
+                userId={userId}
+                userName={userName}
+                userCategory={userCategory}
+                userDepartment={userDepartment}
+                userDepartmentId={userDepartmentId}
+                userFactoryId={userFactoryId}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
