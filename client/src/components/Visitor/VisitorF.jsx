@@ -17,6 +17,12 @@ import rule5 from "../../assets/VisitorRegistration/rule5.jpg";
 import rule6 from "../../assets/VisitorRegistration/rule6.png";
 import rule7 from "../../assets/VisitorRegistration/rule7.png";
 import rule8 from "../../assets/VisitorRegistration/rule8.png";
+import rule9 from "../../assets/VisitorRegistration/rule9.jpg";
+import rule10 from "../../assets/VisitorRegistration/rule10.png";
+import rule11 from "../../assets/VisitorRegistration/rule11.jpg";
+import rule12 from "../../assets/VisitorRegistration/rule12.png";
+
+import QRCode from "../../assets/VisitorRegistration/QRCode.png";
 // import rule2 from "";
 // import rule3 from "";
 // import rule4 from "";
@@ -539,120 +545,120 @@ const VisitorF = () => {
         title: "VISITOR INSTRUCTIONS",
         icon: "info",
         html: `
-    <style>
+<style>
   .image-grid {
+  background-color:white;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
     padding: 10px;
-    box-sizing: border-box;
   }
-
-  /* Container for each image to center its child */
+  
   .image-grid > div {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100px; /* Optional: sets a consistent height per cell */
-    background-color: #f9f9f9; /* Optional: for better layout feel */
-    padding: 5px;
+    min-height: 100px;
+    background-color: #f9f9f9;
   }
-
+  
   .image-grid img {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 100px;
     object-fit: contain;
-    display: block;
   }
-
-  /* Responsive breakpoints */
-  @media (max-width: 1024px) {
+  
+  .qr-container {
+    grid-column: span 2;
+    background: white;
+    padding: 10px;
+    text-align: center;
+    display:flex; flex-direction:column;
+    justify-content:center;
+    align-items:center;
+  }
+  
+  @media (max-width: 992px) {
     .image-grid {
       grid-template-columns: repeat(4, 1fr);
     }
   }
-
-  @media (max-width: 768px) {
-    .image-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .image-grid {
-      grid-template-columns: 1fr;
-    }
-  }
 </style>
 
-    <ul style="font-size: 14px; padding-left: 20px; list-style: none;">
+<ul style="font-size:14px; padding-left:0px; list-style:none;">
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>1.</strong></div>
-    <div style="text-align: justify;">Refrain from entering unauthorized. Do not visit factory alone. Always ask for assistance. Stay with your host.</div>
+    <strong style="min-width:30px;">1.</strong>
+    <span style="text-align:justify;">Refrain from entering unauthorized. Do not visit factory alone. Always ask for assistance. Stay with your host.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>2.</strong></div>
-    <div style="text-align: justify;">No unauthorized photos and videos.</div>
+    <strong style="min-width:30px;">2.</strong>
+    <span style="text-align:justify;">No unauthorized photos and videos.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>3.</strong></div>
-    <div style="text-align: justify;">Refrain from smoking.</div>
+    <strong style="min-width:30px;">3.</strong>
+    <span style="text-align:justify;">Refrain from smoking.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>4.</strong></div>
-    <div style="text-align: justify;">Remove all types of metal items before entering.</div>
+    <strong style="min-width:30px;">4.</strong>
+    <span style="text-align:justify;">Remove all types of metal items before entering.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>5.</strong></div>
-    <div style="text-align: justify;">Use the facility complaint management system for any complaints & your valuable feedbacks are always welcome.</div>
+    <strong style="min-width:30px;">5.</strong>
+    <span style="text-align:justify;">Use the facility complaint management system for any complaints & your valuable feedbacks are always welcome.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>6.</strong></div>
-    <div style="text-align: justify;">Safety First, pay attention to all the safety signs and instructions always.</div>
+    <strong style="min-width:30px;">6.</strong>
+    <span style="text-align:justify;">Safety First, pay attention to all the safety signs and instructions always.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>7.</strong></div>
-    <div style="text-align: justify;">In case of emergency, if the fire alarm sounds, evacuate the building from the nearest emergency exit to the assembly point and help the head counter to verify that you are safe.</div>
+    <strong style="min-width:30px;">7.</strong>
+    <span style="text-align:justify;">In case of emergency, if the fire alarm sounds, evacuate the building from the nearest emergency exit to the assembly point and help the head counter to verify that you are safe.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>8.</strong></div>
-    <div style="text-align: justify;">Do not touch machine parts or  do not try to operate without permission of an authorized person.</div>
+    <strong style="min-width:30px;">8.</strong>
+    <span style="text-align:justify;">Do not touch machine parts or do not try to operate without permission of an authorized person.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>9.</strong></div>
-    <div style="text-align: justify;">Report all accidents immediately to the company  First Aid room or to the host.</div>
+    <strong style="min-width:30px;">9.</strong>
+    <span style="text-align:justify;">Report all accidents immediately to the company First Aid room or to the host.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>10.</strong></div>
-    <div style="text-align: justify;">Do not spit in open environment.</div>
+    <strong style="min-width:30px;">10.</strong>
+    <span style="text-align:justify;">Do not spit in open environment.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>11.</strong></div>
-    <div style="text-align: justify;">Make sure your vehicle is free from oil leakage to the environment. If you notice any environmentally adverse incident, please inform the management or the main security office.</div>
+    <strong style="min-width:30px;">11.</strong>
+    <span style="text-align:justify;">Make sure your vehicle is free from oil leakage to the environment. If you notice any environmentally adverse incident, please inform the management or the main security office.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>12.</strong></div>
-    <div style="text-align: justify;">Dispose waste only into labeled bins.</div>
+    <strong style="min-width:30px;">12.</strong>
+    <span style="text-align:justify;">Dispose waste only into labeled bins.</span>
   </li>
   <li style="margin-top:15px; display:flex; align-items:flex-start;">
-    <div style="min-width: 30px;"><strong>13.</strong></div>
-    <div style="text-align: justify;">Scan the QR for the facility evacuation map.</div>
+    <strong style="min-width:30px;">13.</strong>
+    <span style="text-align:justify;">Scan the QR for the facility evacuation map.</span>
   </li>
 </ul>
 
-    <div class="image-grid" style="margin-top:20px;">
-      <div><img src="${rule1}" alt="picture" /></div>
-      <div><img src="${rule2}" alt="picture" /></div>
-      <div><img src="${rule3}" alt="picture" /></div>
-      <div><img src="${rule4}" alt="picture" /></div>
-      <div><img src="${rule5}" alt="picture" /></div>
-      <div><img src="${rule6}" alt="picture" /></div>
-      <div style="background-color:white;"></div>
-      <div style="background:white;"></div>
-      <div><img src="${rule7}" alt="picture" /></div>
-      <div><img src="${rule8}" alt="picture" /></div>
-    </div>
-  `,
+<div class="image-grid" style="margin-top:20px;">
+  <div><img src="${rule1}" alt="instruction" /></div>
+  <div><img src="${rule2}" alt="instruction" /></div>
+  <div><img src="${rule3}" alt="instruction" /></div>
+  <div><img src="${rule4}" alt="instruction" /></div>
+  <div><img src="${rule10}" alt="instruction" /></div>
+  <div><img src="${rule5}" alt="instruction" /></div>
+  <div style="background:white;"><img src="${rule9}" alt="instruction" /></div>
+  <div style="background:white;"><img src="${rule6}" alt="instruction" /></div>
+  <div><img src="${rule11}" alt="instruction" /></div>
+  <div><img src="${rule7}" alt="instruction" /></div>
+  <div><img src="${rule12}" alt="instruction" /></div>
+  <div><img src="${rule8}" alt="instruction" /></div>
+  </div>
+  <div class="qr-container">
+    <img src="${QRCode}" alt="QR code" style="width:100%; max-width:150px;"/>
+    <div style="font-size:12px; margin-top:5px;">Scan for evacuation map</div>
+  </div>
+`,
         confirmButtonText: "I Agree",
         confirmButtonColor: "#E4080A",
         width: 650,
@@ -947,18 +953,18 @@ const VisitorF = () => {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className="min-w-full divide-y divide-gray-200 ">
               <thead className="bg-gray-100">
                 <tr>
                   <th
                     scope="col"
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-1 border-black/20 shadow-sm"
                   >
                     Vehicle Type
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-1 border-black/20 shadow-sm"
                   >
                     Vehicle No
                   </th>
@@ -970,10 +976,10 @@ const VisitorF = () => {
                   </th> */}
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-gray-200 rounded-lg">
                 {vehicles.map((vehicle, index) => (
                   <tr key={index}>
-                    <td className="md:px-4 md:py-2 whitespace-nowrap border-black/40 border">
+                    <td className="md:px-4 md:py-2 whitespace-nowrap border-black/10 border shadow-lg">
                       <input
                         type="text"
                         className="block w-full px-3 py-1 border-0 h-full border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -989,7 +995,7 @@ const VisitorF = () => {
                           </p>
                         )}
                     </td>
-                    <td className="px-4 py-2 whitespace-nowrap border-black/40 border">
+                    <td className="md:px-4 md:py-2 whitespace-nowrap border-black/10 border shadow-lg">
                       <input
                         type="text"
                         className="block w-full px-3 py-1 border-0 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -1046,13 +1052,13 @@ const VisitorF = () => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-1 border-black/20 shadow-sm"
                   >
                     Visitor Name
                   </th>
                   <th
                     scope="col"
-                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border-1 border-black/20 shadow-sm"
                   >
                     NIC
                   </th>
@@ -1067,7 +1073,7 @@ const VisitorF = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {visitors.map((visitor, index) => (
                   <tr key={index}>
-                    <td className="px-4 py-2 border border-black/40 whitespace-nowrap">
+                    <td className="md:px-4 md:py-2 whitespace-nowrap border-black/20 border shadow-lg">
                       <input
                         type="text"
                         className="block w-full px-3 py-1 border-0 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -1083,7 +1089,7 @@ const VisitorF = () => {
                           </p>
                         )}
                     </td>
-                    <td className="px-4 border border-black/40 py-2 whitespace-nowrap">
+                    <td className="md:px-4 md:py-2 whitespace-nowrap border-black/20 border shadow-lg">
                       <input
                         type="text"
                         className="block w-full px-3 py-1 border-0 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
@@ -1121,7 +1127,7 @@ const VisitorF = () => {
 
         {/* Terms and Conditions */}
         <div className="mb-6">
-          <div className="flex items-center">
+          <div className="flex items-start justify-center">
             <input
               type="checkbox"
               id="guidelines"
@@ -1133,7 +1139,7 @@ const VisitorF = () => {
             />
             <label
               htmlFor="guidelines"
-              className="ml-2 block text-sm text-gray-700"
+              className="ml-2 block text-sm text-gray-700 text-center"
             >
               I agree to all the guidelines provided by the company
             </label>
